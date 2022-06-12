@@ -1,0 +1,15 @@
+name: Check Flutter Code Quality
+on:
+  pull_request:
+jobs:
+  test:
+    name: Check code quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable' # or: 'beta' or 'master'
+      - run: flutter --version
+      - run: flutter pub get
+      - run: flutter analyze
