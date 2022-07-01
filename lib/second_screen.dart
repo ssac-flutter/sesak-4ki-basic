@@ -17,6 +17,7 @@ class SecondScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset('assets/pic.jpg'),
             Text(name),
             ElevatedButton(
               onPressed: () {

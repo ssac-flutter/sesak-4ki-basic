@@ -23,6 +23,12 @@ class _FirstScreenState extends State<FirstScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.network(
+              'http://talkimg.imbc.com/TVianUpload/tvian/TViews/image/2022/01/05/0vU4v7vCfjju637769738893922804.jpg',
+              width: 200,
+              height: 150,
+              fit: BoxFit.cover,
+            ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
