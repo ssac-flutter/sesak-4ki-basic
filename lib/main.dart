@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pr_guide/first_screen.dart';
 
+// 화이팅
 void main() {
   runApp(const MyApp());
 }
