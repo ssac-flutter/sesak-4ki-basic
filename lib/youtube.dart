@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
 class Youtubu extends StatelessWidget {
-  const Youtubu({Key? key}) : super(key: key);
+  Youtubu({Key? key}) : super(key: key);
+
+  final items = ['홍길동', '한석봉'];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          Text('aa', style: TextStyle(fontSize: 200),),
-          Text('aa', style: TextStyle(fontSize: 200),),
-          Text('aa', style: TextStyle(fontSize: 200),),
-          Text('aa', style: TextStyle(fontSize: 200),),
-        ],
+      body: ListView.builder(
+        padding: const EdgeInsets.all(8),
+        itemCount: items.length,
+        itemBuilder:  (BuildContext context, int index) {
+          return Text('${items[index]}', style: TextStyle(fontSize: 100),);
+        },
       ),
     );
   }
