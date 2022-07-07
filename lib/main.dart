@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pr_guide/first_screen.dart';
 import 'package:flutter_pr_guide/kakao_t/kakao_main_screen.dart';
+import 'package:flutter_pr_guide/youtube.dart';
 
 // 화이팅
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const KakaoMainScreen(),
+      home: const Youtubu(),
     );
   }
 }
