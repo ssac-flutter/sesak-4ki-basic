@@ -12,7 +12,17 @@ class Youtubu extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         itemCount: items.length,
         itemBuilder:  (BuildContext context, int index) {
-          return Text('${items[index]}', style: TextStyle(fontSize: 100),);
+          return GestureDetector(
+            onTap: () {
+              print('${items[index]}');
+            },
+            child: Column(
+              children: [
+                Text('${items[index]}', style: TextStyle(fontSize: 100),),
+                Divider(),
+              ],
+            ),
+          );
         },
       ),
     );
