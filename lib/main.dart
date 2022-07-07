@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pr_guide/component_exam/component_exam.dart';
 import 'package:flutter_pr_guide/first_screen.dart';
 import 'package:flutter_pr_guide/kakao_t/kakao_main_screen.dart';
 import 'package:flutter_pr_guide/youtube/youtube.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Youtubu(),
+      home: ComponentExam(),
     );
   }
 }
