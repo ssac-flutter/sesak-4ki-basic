@@ -67,14 +67,14 @@ class ChatScreen extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text('오후 11:33'),
+                    const Text('오후 11:33'),
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.redAccent,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
+                      child: const Padding(
+                        padding: EdgeInsets.all(4.0),
                         child: Text(
                           '79',
                           style: TextStyle(color: Colors.white),
