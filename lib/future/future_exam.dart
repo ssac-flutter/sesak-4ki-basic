@@ -33,7 +33,7 @@ class FutureExam extends StatelessWidget {
               child: const Text('연습 2'),
             ),
             ElevatedButton(
-              onPressed: () => exam3(),
+              onPressed: exam3,
               child: const Text('연습 3'),
             ),
           ],
