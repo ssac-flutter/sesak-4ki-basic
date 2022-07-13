@@ -11,10 +11,11 @@ class FutureExam extends StatelessWidget {
       ),
       body: Center(
         child: ElevatedButton(
-          onPressed: () {
+          onPressed: () async {
             print('시작!!!');
 
-            exam1_2().then((value) => print(value));
+            String result = await exam1_3();
+            print(result);
           },
           child: const Text('연습 1'),
         ),
