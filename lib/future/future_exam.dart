@@ -32,6 +32,21 @@ class FutureExam extends StatelessWidget {
               },
               child: const Text('연습 2'),
             ),
+            ElevatedButton(
+              onPressed: () async {
+                print('다운로드 시작!');
+                await Future.delayed(const Duration(seconds: 1));
+
+                print('초기화 중..');
+                await Future.delayed(const Duration(seconds: 1));
+
+                print('핵심파일 로드 중..');
+                await Future.delayed(const Duration(seconds: 3));
+
+                print('다운로드 완료!');
+              },
+              child: const Text('연습 3'),
+            ),
           ],
         ),
       ),
