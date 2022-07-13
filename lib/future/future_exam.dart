@@ -47,15 +47,10 @@ class FutureExam extends StatelessWidget {
   }
 
   Future exam4() async {
-    print('5');
-    await Future.delayed(const Duration(seconds: 1));
-    print('4');
-    await Future.delayed(const Duration(seconds: 1));
-    print('3');
-    await Future.delayed(const Duration(seconds: 1));
-    print('2');
-    await Future.delayed(const Duration(seconds: 1));
-    print('1');
+    for (int i = 5; i > 0; i--) {
+      print(i);
+      await Future.delayed(const Duration(seconds: 1));
+    }
   }
 
   Future exam3() async {
