@@ -32,4 +32,9 @@ class FutureExam extends StatelessWidget {
     var data = await Future.value('Hello');
     return data;
   }
+
+  Future<String> exam1_3() async {
+    await Future.delayed(const Duration(seconds: 2));
+    return 'Hello';
+  }
 }
