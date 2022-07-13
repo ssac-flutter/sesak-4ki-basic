@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pr_guide/future/future_exam.dart';
 
 // 화이팅
 void main() {
@@ -16,7 +15,40 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const FutureExam(),
+      home: const CounterApp(),
+    );
+  }
+}
+
+class CounterApp extends StatefulWidget {
+  const CounterApp({Key? key}) : super(key: key);
+
+  @override
+  State<CounterApp> createState() => _CounterAppState();
+}
+
+class _CounterAppState extends State<CounterApp> {
+  int count = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('카운터'),
+      ),
+      body: Center(
+        child: InkWell(
+          onTap: () {
+            setState(() {
+              count++;
+            });
+          },
+          child: Text(
+            '$count',
+            style: const TextStyle(fontSize: 80),
+          ),
+        ),
+      ),
     );
   }
 }
