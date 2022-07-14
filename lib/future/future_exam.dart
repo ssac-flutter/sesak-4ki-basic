@@ -15,10 +15,9 @@ class FutureExam extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () async {
-                print('시작!!!');
+                await exam3();
 
-                String result = await exam1_3();
-                print(result);
+                print('!!!');
               },
               child: const Text('연습 1'),
             ),

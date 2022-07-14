@@ -29,42 +29,46 @@ class CounterApp extends StatefulWidget {
 
 class _CounterAppState extends State<CounterApp> {
   int count = 0;
-  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading) {
-      print('로딩');
-    } else {
-      print('로딩 아님');
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('카운터'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              setState(() {
+                count--;
+              });
+            },
+            icon: const Icon(Icons.exposure_minus_1),
+          ),
+          IconButton(
+            onPressed: () {
+              setState(() {
+                count = count - 2;
+              });
+            },
+            icon: const Icon(Icons.exposure_minus_2),
+          ),
+        ],
       ),
       body: Center(
-        child: InkWell(
-          onTap: () {
-            setState(() {
-              isLoading = !isLoading;
-              count++;
-            });
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (isLoading)
-                const CircularProgressIndicator()
-              else
-                const Text('로딩 아님'),
-              Text(
-                '$count',
-                style: const TextStyle(fontSize: 80),
-              ),
-            ],
-          ),
+        child: Text(
+          '$count',
+          style: const TextStyle(fontSize: 80),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.add),
+        onPressed: () {
+          print('click');
+
+          setState(() {
+            count++;
+          });
+        },
       ),
     );
   }
