@@ -29,6 +29,7 @@ class CounterApp extends StatefulWidget {
 
 class _CounterAppState extends State<CounterApp> {
   int count = 0;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -55,21 +56,37 @@ class _CounterAppState extends State<CounterApp> {
         ],
       ),
       body: Center(
-        child: Text(
-          '$count',
-          style: const TextStyle(fontSize: 80),
-        ),
+        child: _buildText(),
       ),
       floatingActionButton: FloatingActionButton(
+        onPressed: increase,
         child: const Icon(Icons.add),
-        onPressed: () {
-          print('click');
-
-          setState(() {
-            count++;
-          });
-        },
       ),
     );
+  }
+
+  Widget _buildText() {
+    if (isLoading) {
+      return const CircularProgressIndicator();
+    }
+
+    return Text(
+      '$count',
+      style: const TextStyle(fontSize: 80),
+    );
+  }
+
+  Future<void> increase() async {
+    setState(() {
+      isLoading = true;
+    });
+    print('click');
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    setState(() {
+      count++;
+      isLoading = false;
+    });
   }
 }
