@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pr_guide/image_search_app/model/picture.dart';
 import 'package:flutter_pr_guide/mock_data/images.dart';
 
 class ImageSearchApp extends StatefulWidget {
@@ -9,7 +10,7 @@ class ImageSearchApp extends StatefulWidget {
 }
 
 class _ImageSearchAppState extends State<ImageSearchApp> {
-  List<Map<String, dynamic>> _images = [];
+  List<Picture> _images = [];
 
   @override
   void initState() {
@@ -64,11 +65,11 @@ class _ImageSearchAppState extends State<ImageSearchApp> {
                         crossAxisSpacing: 10,
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        Map<String, dynamic> image = _images[index];
+                        Picture image = _images[index];
                         return ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Image.network(
-                            image['previewURL'],
+                            image.previewURL,
                             fit: BoxFit.cover,
                           ),
                         );
@@ -81,10 +82,21 @@ class _ImageSearchAppState extends State<ImageSearchApp> {
     );
   }
 
-  Future<List<Map<String, dynamic>>> getImages() async {
+  Future<List<Picture>> getImages() async {
     await Future.delayed(const Duration(seconds: 2));
 
     List<Map<String, dynamic>> hits = images['hits'];
-    return hits;
+
+    List<Picture> results = [];
+
+    for (int i = 0; i < hits.length; i++) {
+      Map<String, dynamic> item = hits[i];
+
+      Picture picture = Picture.fromJson(item);
+
+      results.add(picture);
+    }
+
+    return results;
   }
 }
