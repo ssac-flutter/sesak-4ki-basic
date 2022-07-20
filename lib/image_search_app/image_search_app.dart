@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_pr_guide/image_search_app/model/picture.dart';
 import 'package:flutter_pr_guide/mock_data/images.dart';
@@ -57,24 +59,24 @@ class _ImageSearchAppState extends State<ImageSearchApp> {
               child: _images.isEmpty
                   ? const Center(child: CircularProgressIndicator())
                   : GridView.builder(
-                      itemCount: _images.length,
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
-                      ),
-                      itemBuilder: (BuildContext context, int index) {
-                        Picture image = _images[index];
-                        return ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.network(
-                            image.previewURL,
-                            fit: BoxFit.cover,
-                          ),
-                        );
-                      },
+                itemCount: _images.length,
+                gridDelegate:
+                const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  Picture image = _images[index];
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.network(
+                      image.previewURL,
+                      fit: BoxFit.cover,
                     ),
+                  );
+                },
+              ),
             ),
           ),
         ],
@@ -85,18 +87,10 @@ class _ImageSearchAppState extends State<ImageSearchApp> {
   Future<List<Picture>> getImages() async {
     await Future.delayed(const Duration(seconds: 2));
 
-    List<Map<String, dynamic>> hits = images['hits'];
+    String jsonString = images;
 
-    List<Picture> results = [];
-
-    for (int i = 0; i < hits.length; i++) {
-      Map<String, dynamic> item = hits[i];
-
-      Picture picture = Picture.fromJson(item);
-
-      results.add(picture);
-    }
-
-    return results;
+    Map<String, dynamic> json = jsonDecode(jsonString);
+    Iterable hits = json['hits'];
+    return hits.map((e) => Picture.fromJson(e)).toList();
   }
 }

@@ -1,4 +1,4 @@
-Map<String, dynamic> images = {
+String images = """{
   "total": 8737,
   "totalHits": 500,
   "hits": [
@@ -582,4 +582,4 @@ Map<String, dynamic> images = {
           "https://cdn.pixabay.com/user/2021/02/06/02-19-29-704_250x250.png"
     }
   ]
-};
+}""";
