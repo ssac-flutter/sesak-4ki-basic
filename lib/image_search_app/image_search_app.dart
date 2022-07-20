@@ -9,12 +9,31 @@ class ImageSearchApp extends StatefulWidget {
 }
 
 class _ImageSearchAppState extends State<ImageSearchApp> {
+  List<Map<String, dynamic>> _images = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    initData();
+  }
+
+  Future initData() async {
+    _images = await getImages();
+
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.white,
-        title: const Text('이미지 검색 앱'),
+        title: const Text(
+          '이미지 검색 앱',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: Column(
         children: [
@@ -34,28 +53,38 @@ class _ImageSearchAppState extends State<ImageSearchApp> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: GridView.builder(
-                itemCount: images.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  Map<String, dynamic> image = images['hits'][index];
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.network(
-                      image['previewURL'],
-                      fit: BoxFit.cover,
+              child: _images.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  : GridView.builder(
+                      itemCount: _images.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        Map<String, dynamic> image = _images[index];
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(
+                            image['previewURL'],
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  Future<List<Map<String, dynamic>>> getImages() async {
+    await Future.delayed(const Duration(seconds: 2));
+
+    List<Map<String, dynamic>> hits = images['hits'];
+    return hits;
   }
 }
