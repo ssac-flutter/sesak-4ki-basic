@@ -46,7 +46,9 @@ class ImageSearchApp extends StatelessWidget {
                   }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const CircularProgressIndicator();
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
 
                   if (!snapshot.hasData) {
@@ -57,17 +59,28 @@ class ImageSearchApp extends StatelessWidget {
 
                   final images = snapshot.data!;
 
+                  if (images.isEmpty) {
+                    return const Center(
+                      child: Text('데이터가 0개입니다'),
+                    );
+                  }
+
                   return GridView.builder(
                     itemCount: images.length,
                     gridDelegate:
-                        const SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200,
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
                     ),
                     itemBuilder: (BuildContext context, int index) {
                       Picture image = images[index];
-                      return Image.network(
-                        image.previewURL,
-                        fit: BoxFit.cover,
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          image.previewURL,
+                          fit: BoxFit.cover,
+                        ),
                       );
                     },
                   );
@@ -88,5 +101,11 @@ class ImageSearchApp extends StatelessWidget {
     Map<String, dynamic> json = jsonDecode(jsonString);
     List hits = json['hits'];
     return hits.map((e) => Picture.fromJson(e)).toList();
+
+    // 에러 발생
+    // throw Exception('엄청난 에러');
+
+    // 빈 리스트
+    // return [];
   }
 }
