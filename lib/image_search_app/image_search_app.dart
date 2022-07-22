@@ -72,7 +72,11 @@ class ImageSearchApp extends StatelessWidget {
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
                     ),
-                    children: images.map((Picture image) {
+                    children: images
+                        .where((e) =>
+                            e.tags.contains('watch') ||
+                            e.tags.contains('computer'))
+                        .map((Picture image) {
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.network(
