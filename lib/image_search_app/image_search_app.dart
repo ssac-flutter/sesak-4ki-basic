@@ -57,7 +57,7 @@ class ImageSearchApp extends StatelessWidget {
                     );
                   }
 
-                  final images = snapshot.data!;
+                  final List<Picture> images = snapshot.data!;
 
                   if (images.isEmpty) {
                     return const Center(
@@ -65,16 +65,14 @@ class ImageSearchApp extends StatelessWidget {
                     );
                   }
 
-                  return GridView.builder(
-                    itemCount: images.length,
+                  return GridView(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
                     ),
-                    itemBuilder: (BuildContext context, int index) {
-                      Picture image = images[index];
+                    children: images.map((Picture image) {
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.network(
@@ -82,7 +80,7 @@ class ImageSearchApp extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       );
-                    },
+                    }).toList(),
                   );
                 },
               ),
@@ -99,7 +97,7 @@ class ImageSearchApp extends StatelessWidget {
     String jsonString = images;
 
     Map<String, dynamic> json = jsonDecode(jsonString);
-    List hits = json['hits'];
+    List<dynamic> hits = json['hits'];
     return hits.map((e) => Picture.fromJson(e)).toList();
 
     // 에러 발생
