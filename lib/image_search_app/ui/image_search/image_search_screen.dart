@@ -30,22 +30,24 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.white,
         title: const Text(
           '이미지 검색 앱',
-          style: TextStyle(color: Colors.black),
         ),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: _controller,
               decoration: InputDecoration(
-                enabledBorder: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(color: Colors.blue, width: 2),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2,
+                  ),
                 ),
                 suffixIcon: GestureDetector(
                   onTap: () {
@@ -58,6 +60,10 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
                 hintText: '검색어를 입력하세요',
               ),
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text('결과 : ', style: Theme.of(context).textTheme.titleSmall),
           ),
           Expanded(
             child: Padding(
@@ -94,7 +100,7 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
                   return GridView(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount:
-                          orientation == Orientation.portrait ? 2 : 4,
+                      orientation == Orientation.portrait ? 2 : 4,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
                     ),
@@ -118,5 +124,4 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
       ),
     );
   }
-
 }
