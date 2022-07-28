@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pr_guide/image_search_app/api/picture_api.dart';
+import 'package:flutter_pr_guide/image_search_app/api/storage_api.dart';
 import 'package:flutter_pr_guide/image_search_app/model/picture.dart';
-import 'package:flutter_pr_guide/image_search_app/picture_api.dart';
-import 'package:flutter_pr_guide/image_search_app/storage_api.dart';
 
-class ImageSearchApp extends StatefulWidget {
-  const ImageSearchApp({Key? key}) : super(key: key);
+class ImageSearchScreen extends StatefulWidget {
+  const ImageSearchScreen({Key? key}) : super(key: key);
 
   @override
-  State<ImageSearchApp> createState() => _ImageSearchAppState();
+  State<ImageSearchScreen> createState() => _ImageSearchScreenState();
 }
 
-class _ImageSearchAppState extends State<ImageSearchApp> {
+class _ImageSearchScreenState extends State<ImageSearchScreen> {
   final _pictureApi = PictureApi();
   final _storageApi = StorageApi();
 

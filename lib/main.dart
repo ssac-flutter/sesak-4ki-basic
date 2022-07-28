@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_pr_guide/image_search_app/image_search_app.dart';
+import 'package:flutter_pr_guide/image_search_app/ui/image_app.dart';
 
 // 화이팅
 void main() {
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const ImageSearchApp(),
+      home: const ImageApp(),
     );
   }
 }
