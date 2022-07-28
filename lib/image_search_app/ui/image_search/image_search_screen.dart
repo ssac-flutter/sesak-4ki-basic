@@ -45,7 +45,7 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
                   borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.secondary,
                     width: 2,
                   ),
                 ),
