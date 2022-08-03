@@ -1,9 +1,23 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_pr_guide/image_search_app/model/picture.dart';
 import 'package:http/http.dart' as http;
 
 class PictureApi {
+  PictureApi() {
+    fetchImages('');
+  }
+
+  final _imagesStreamController = StreamController<List<Picture>>();
+
+  Stream<List<Picture>> get imagesStream => _imagesStreamController.stream;
+
+  Future fetchImages(String query) async {
+    List<Picture> images = await getImages(query);
+    _imagesStreamController.add(images);
+  }
+
   Future<List<Picture>> getImages(String query) async {
     // 뻥
     // await Future.delayed(const Duration(seconds: 2));

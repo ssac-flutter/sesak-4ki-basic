@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pr_guide/image_search_app/api/picture_api.dart';
-import 'package:flutter_pr_guide/image_search_app/api/storage_api.dart';
 import 'package:flutter_pr_guide/image_search_app/model/picture.dart';
 
 class ImageSearchScreen extends StatefulWidget {
@@ -12,10 +11,8 @@ class ImageSearchScreen extends StatefulWidget {
 
 class _ImageSearchScreenState extends State<ImageSearchScreen> {
   final _pictureApi = PictureApi();
-  final _storageApi = StorageApi();
 
   final _controller = TextEditingController();
-  String _query = '';
 
   @override
   void dispose() {
@@ -51,9 +48,7 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
                 ),
                 suffixIcon: GestureDetector(
                   onTap: () {
-                    setState(() {
-                      _query = _controller.text;
-                    });
+                    _pictureApi.fetchImages(_controller.text);
                   },
                   child: const Icon(Icons.search),
                 ),
@@ -68,8 +63,9 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: FutureBuilder<List<Picture>>(
-                future: _pictureApi.getImages(_query),
+              child: StreamBuilder<List<Picture>>(
+                stream: _pictureApi.imagesStream,
+                initialData: const [],
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
                     return const Center(
@@ -100,13 +96,11 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
                   return GridView(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount:
-                      orientation == Orientation.portrait ? 2 : 4,
+                          orientation == Orientation.portrait ? 2 : 4,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
                     ),
-                    children: images
-                        .where((e) => e.tags.contains(_query))
-                        .map((Picture image) {
+                    children: images.map((Picture image) {
                       return ClipRRect(
                         borderRadius: BorderRadius.circular(20),
                         child: Image.network(
