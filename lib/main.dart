@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: darkColorScheme,
       ),
-      home: const BookListScreen(),
+      home: BookListScreen(),
     );
   }
 }
