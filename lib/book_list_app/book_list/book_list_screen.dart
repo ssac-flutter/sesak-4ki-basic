@@ -29,9 +29,20 @@ class BookListScreen extends StatelessWidget {
               children: snapshot.data!.docs.map((DocumentSnapshot document) {
                 Map<String, dynamic> data =
                     document.data()! as Map<String, dynamic>;
-                return ListTile(
-                  title: Text(data['title']),
-                  subtitle: Text(data['author']),
+                return Dismissible(
+                  onDismissed: (_) {
+                    viewModel.deleteBook(document.id);
+                  },
+                  background: Container(
+                    alignment: Alignment.centerLeft,
+                    color: Colors.red,
+                    child: const Icon(Icons.delete, color: Colors.white),
+                  ),
+                  key: ValueKey(document.id),
+                  child: ListTile(
+                    title: Text(data['title']),
+                    subtitle: Text(data['author']),
+                  ),
                 );
               }).toList(),
             );
