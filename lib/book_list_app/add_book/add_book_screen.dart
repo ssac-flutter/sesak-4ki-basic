@@ -86,8 +86,9 @@ class _AddBookScreenState extends State<AddBookScreen> {
                   : () {
                 viewModel.addBook(
                   title: _titleTextController.text,
-                  author: _authorTextController.text,
-                );
+                        author: _authorTextController.text,
+                        bytes: _bytes,
+                      );
 
                 Navigator.pop(context);
               },
