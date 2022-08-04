@@ -50,6 +50,11 @@ class BookListScreen extends StatelessWidget {
                     },
                     title: Text(data['title']),
                     subtitle: Text(data['author']),
+                    leading: Image.network(
+                      data['imageUrl'],
+                      width: 100,
+                      height: 100,
+                    ),
                   ),
                 );
               }).toList(),
