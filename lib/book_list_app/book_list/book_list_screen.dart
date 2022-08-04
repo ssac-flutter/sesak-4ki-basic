@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pr_guide/book_list_app/add_book/add_book_screen.dart';
 import 'package:flutter_pr_guide/book_list_app/book_list/book_list_view_model.dart';
+import 'package:flutter_pr_guide/book_list_app/update_book/update_book_screen.dart';
 
 class BookListScreen extends StatelessWidget {
   BookListScreen({Key? key}) : super(key: key);
@@ -40,6 +41,13 @@ class BookListScreen extends StatelessWidget {
                   ),
                   key: ValueKey(document.id),
                   child: ListTile(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UpdateBookScreen(document)),
+                      );
+                    },
                     title: Text(data['title']),
                     subtitle: Text(data['author']),
                   ),
