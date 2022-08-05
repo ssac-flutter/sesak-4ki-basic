@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pr_guide/book_list_app/book_list/book_list_screen.dart';
+import 'package:flutter_pr_guide/book_list_app/root/root_screen.dart';
 import 'package:flutter_pr_guide/image_search_app/color_schemes.g.dart';
 
 import 'firebase_options.dart';
@@ -13,13 +13,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  test().then((value) => null).catchError((e) => print(e));
-
   runApp(const MyApp());
-}
-
-Future test() async {
-  throw 'test';
 }
 
 class MyApp extends StatelessWidget {
@@ -37,7 +31,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: darkColorScheme,
       ),
-      home: BookListScreen(),
+      home: const RootScreen(),
     );
   }
 }
