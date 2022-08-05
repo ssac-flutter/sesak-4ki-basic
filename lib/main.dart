@@ -13,7 +13,13 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  test().then((value) => null).catchError((e) => print(e));
+
   runApp(const MyApp());
+}
+
+Future test() async {
+  throw 'test';
 }
 
 class MyApp extends StatelessWidget {
