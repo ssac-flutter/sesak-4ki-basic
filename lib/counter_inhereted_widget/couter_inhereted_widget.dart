@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pr_guide/counter_inhereted_widget/counter.dart';
-import 'package:flutter_pr_guide/counter_inhereted_widget/next_screen.dart';
+import 'package:flutter_pr_guide/counter_inhereted_widget/counter_view_model.dart';
+import 'package:provider/provider.dart';
 
 class CounterInheritedWidgetSample extends StatelessWidget {
   const CounterInheritedWidgetSample({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final count = Counter.of(context).count;
+    final viewModel = context.watch<CounterViewModel>();
 
     return Scaffold(
       appBar: AppBar(
@@ -15,16 +15,13 @@ class CounterInheritedWidgetSample extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          '$count',
+          '${viewModel.count}',
           style: Theme.of(context).textTheme.headline1,
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const NextScreen()),
-          );
+          viewModel.increment();
         },
         child: const Icon(Icons.add),
       ),

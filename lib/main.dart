@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pr_guide/counter_inhereted_widget/counter.dart';
+import 'package:flutter_pr_guide/counter_inhereted_widget/counter_view_model.dart';
 import 'package:flutter_pr_guide/counter_inhereted_widget/couter_inhereted_widget.dart';
 import 'package:flutter_pr_guide/image_search_app/color_schemes.g.dart';
+import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
 
@@ -36,9 +38,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: darkColorScheme,
       ),
-      home: const Counter(
-        count: 100,
-        child: CounterInheritedWidgetSample(),
+      home: ChangeNotifierProvider(
+        create: (_) => CounterViewModel(),
+        child: const CounterInheritedWidgetSample(),
       ),
     );
   }
