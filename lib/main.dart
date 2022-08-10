@@ -2,7 +2,8 @@ import 'dart:math';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pr_guide/book_list_app/book_list/book_list_screen.dart';
+import 'package:flutter_pr_guide/counter_inhereted_widget/counter.dart';
+import 'package:flutter_pr_guide/counter_inhereted_widget/couter_inhereted_widget.dart';
 import 'package:flutter_pr_guide/image_search_app/color_schemes.g.dart';
 
 import 'firebase_options.dart';
@@ -13,7 +14,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
+  runApp(const Counter(
+    count: 10,
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -21,6 +25,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(Counter.of(context).count); // 10
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -31,7 +36,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: darkColorScheme,
       ),
-      home: BookListScreen(),
+      home: const Counter(
+        count: 100,
+        child: CounterInheritedWidgetSample(),
+      ),
     );
   }
 }

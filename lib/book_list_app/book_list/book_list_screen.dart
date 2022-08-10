@@ -4,6 +4,7 @@ import 'package:flutter_pr_guide/book_list_app/add_book/add_book_screen.dart';
 import 'package:flutter_pr_guide/book_list_app/book_list/book_list_view_model.dart';
 import 'package:flutter_pr_guide/book_list_app/model/book.dart';
 import 'package:flutter_pr_guide/book_list_app/update_book/update_book_screen.dart';
+import 'package:flutterfire_ui/auth.dart';
 
 class BookListScreen extends StatelessWidget {
   BookListScreen({Key? key}) : super(key: key);
@@ -22,6 +23,25 @@ class BookListScreen extends StatelessWidget {
             },
             icon: const Icon(Icons.logout),
           ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ProfileScreen(
+                          providerConfigs: [
+                            EmailProviderConfiguration(),
+                            GoogleProviderConfiguration(
+                              clientId:
+                                  '223854375561-lbtter4cr98vegtclvpacl2oshptb5m2.apps.googleusercontent.com',
+                            ),
+                          ],
+                          avatarSize: 24,
+                        )),
+              );
+            },
+            icon: const Icon(Icons.person),
+          )
         ],
       ),
       body: StreamBuilder<QuerySnapshot<Book>>(
