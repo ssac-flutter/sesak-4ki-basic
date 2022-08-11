@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pr_guide/image_search_app/api/picture_api.dart';
 import 'package:flutter_pr_guide/image_search_app/model/picture.dart';
+import 'package:flutter_pr_guide/image_search_app/ui/image_search/image_search_view_model.dart';
+import 'package:provider/provider.dart';
 
 class ImageSearchScreen extends StatefulWidget {
   const ImageSearchScreen({Key? key}) : super(key: key);
@@ -10,9 +11,21 @@ class ImageSearchScreen extends StatefulWidget {
 }
 
 class _ImageSearchScreenState extends State<ImageSearchScreen> {
-  final _pictureApi = PictureApi();
-
   final _controller = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(Duration.zero, () {
+      // final viewModel = Provider.of<ImageSearchViewModel>(context);
+      // final viewModel = context.watch<ImageSearchViewModel>();
+
+      // final viewModel = Provider.of<ImageSearchViewModel>(context, listen: false);
+      final viewModel = context.read<ImageSearchViewModel>();
+      viewModel.fetchImages('');
+    });
+  }
 
   @override
   void dispose() {
@@ -22,6 +35,8 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final viewModel = context.watch<ImageSearchViewModel>();
+
     final orientation = MediaQuery.of(context).orientation;
 
     return Scaffold(
@@ -48,7 +63,10 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
                 ),
                 suffixIcon: GestureDetector(
                   onTap: () {
-                    _pictureApi.fetchImages(_controller.text);
+                    context
+                        .read<ImageSearchViewModel>()
+                        .fetchImages(_controller.text);
+                    // viewModel.fetchImages(_controller.text);
                   },
                   child: const Icon(Icons.search),
                 ),
@@ -63,55 +81,25 @@ class _ImageSearchScreenState extends State<ImageSearchScreen> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: StreamBuilder<List<Picture>>(
-                stream: _pictureApi.imagesStream,
-                initialData: const [],
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return const Center(
-                      child: Text('에러가 발생했습니다'),
-                    );
-                  }
-
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: Text('데이터가 없습니다'),
-                    );
-                  }
-
-                  final List<Picture> images = snapshot.data!;
-
-                  if (images.isEmpty) {
-                    return const Center(
-                      child: Text('데이터가 0개입니다'),
-                    );
-                  }
-
-                  return GridView(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount:
-                          orientation == Orientation.portrait ? 2 : 4,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
+              child: viewModel.isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : GridView(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount:
+                            orientation == Orientation.portrait ? 2 : 4,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                      ),
+                      children: viewModel.images.map((Picture image) {
+                        return ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.network(
+                            image.previewURL,
+                            fit: BoxFit.cover,
+                          ),
+                        );
+                      }).toList(),
                     ),
-                    children: images.map((Picture image) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.network(
-                          image.previewURL,
-                          fit: BoxFit.cover,
-                        ),
-                      );
-                    }).toList(),
-                  );
-                },
-              ),
             ),
           ),
         ],
