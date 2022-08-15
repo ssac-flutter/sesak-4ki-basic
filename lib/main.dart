@@ -2,8 +2,9 @@ import 'dart:math';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_pr_guide/exchange_app/exchange_app_screen.dart';
+import 'package:flutter_pr_guide/exchange_app/exchange_app_view_model.dart';
 import 'package:flutter_pr_guide/image_search_app/color_schemes.g.dart';
-import 'package:flutter_pr_guide/image_search_app/ui/image_app.dart';
 import 'package:flutter_pr_guide/image_search_app/ui/image_search/image_search_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -38,7 +39,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: darkColorScheme,
       ),
-      home: const ImageApp(),
+      home: ChangeNotifierProvider(
+        create: (BuildContext context) => ExchangeAppViewModel(),
+        child: const ExchangeAppScreen(),
+      ),
     );
   }
 }
