@@ -31,7 +31,8 @@ class PictureApi {
 
     Map<String, dynamic> json = jsonDecode(jsonString);
     List<dynamic> hits = json['hits'];
-    return hits.map((e) => Picture.fromJson(e)).toList();
+    List<Picture> items = hits.map((e) => Picture.fromJson(e)).toList();
+    return items;
 
     // 에러 발생
     // throw Exception('엄청난 에러');
