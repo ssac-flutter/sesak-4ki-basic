@@ -2,10 +2,11 @@ import 'dart:math';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_pr_guide/exchange_app/exchange_app_screen.dart';
 import 'package:flutter_pr_guide/exchange_app/exchange_app_view_model.dart';
 import 'package:flutter_pr_guide/image_search_app/color_schemes.g.dart';
 import 'package:flutter_pr_guide/image_search_app/ui/image_search/image_search_view_model.dart';
+import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_screen.dart';
+import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';
@@ -17,8 +18,15 @@ void main() async {
   );
 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ImageSearchViewModel(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ImageSearchViewModel(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => MainViewModel(),
+        ),
+      ],
       child: const MyApp(),
     ),
   );
@@ -41,7 +49,7 @@ class MyApp extends StatelessWidget {
       ),
       home: ChangeNotifierProvider(
         create: (BuildContext context) => ExchangeAppViewModel(),
-        child: const ExchangeAppScreen(),
+        child: const MainScreen(),
       ),
     );
   }
