@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_action.dart';
 import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -32,6 +33,14 @@ class _MainScreenState extends State<MainScreen> {
         title: const Text(
           '이미지 검색 앱',
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              viewModel.onAction(MainAction.addAction());
+            },
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,8 +59,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 suffixIcon: GestureDetector(
                   onTap: () {
-                    viewModel.fetchImages(_controller.text);
-                    // viewModel.fetchImages(_controller.text);
+                    viewModel.onAction(MainAction.getImages(_controller.text));
                   },
                   child: const Icon(Icons.search),
                 ),
