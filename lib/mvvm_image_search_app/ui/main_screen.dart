@@ -27,6 +27,8 @@ class _MainScreenState extends State<MainScreen> {
 
     final orientation = MediaQuery.of(context).orientation;
 
+    final state = viewModel.state;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -36,7 +38,7 @@ class _MainScreenState extends State<MainScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              viewModel.onAction(MainAction.addAction());
+              viewModel.onAction(const MainAction.addAction());
             },
             icon: const Icon(Icons.add),
           ),
@@ -74,7 +76,7 @@ class _MainScreenState extends State<MainScreen> {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: viewModel.isLoading
+              child: state.isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : GridView(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -83,7 +85,7 @@ class _MainScreenState extends State<MainScreen> {
                         mainAxisSpacing: 10,
                         crossAxisSpacing: 10,
                       ),
-                      children: viewModel.photos.map((Photo image) {
+                      children: state.photos.map((Photo image) {
                         return ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Image.network(

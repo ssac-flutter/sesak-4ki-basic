@@ -1,17 +1,30 @@
-abstract class MainAction {
-  factory MainAction.getImages(String query) = GetImages;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  factory MainAction.addAction() = AddAction;
+part 'main_action.freezed.dart';
 
-  factory MainAction.refresh() = Refresh;
+@freezed
+class MainAction with _$MainAction {
+  const factory MainAction.getImages(String query) = GetImages;
+
+  const factory MainAction.addAction() = AddAction;
+
+  const factory MainAction.refresh() = Refresh;
 }
 
-class GetImages implements MainAction {
-  final String query;
-
-  GetImages(this.query);
-}
-
-class AddAction implements MainAction {}
-
-class Refresh implements MainAction {}
+// abstract class MainAction {
+//   factory MainAction.getImages(String query) = GetImages;
+//
+//   factory MainAction.addAction() = AddAction;
+//
+//   factory MainAction.refresh() = Refresh;
+// }
+//
+// class GetImages implements MainAction {
+//   final String query;
+//
+//   GetImages(this.query);
+// }
+//
+// class AddAction implements MainAction {}
+//
+// class Refresh implements MainAction {}

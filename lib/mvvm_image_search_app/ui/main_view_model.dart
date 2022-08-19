@@ -1,38 +1,39 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_pr_guide/mvvm_image_search_app/data/repository/photo_repository.dart';
 import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_action.dart';
-
-import '../data/model/photo.dart';
+import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_state.dart';
 
 class MainViewModel extends ChangeNotifier {
   // 데이터 저장소
   final _photoRepository = PhotoRepository();
 
-  List<Photo> _photos = [];
+  MainState _state = const MainState();
 
-  List<Photo> get photos => UnmodifiableListView(_photos); // 로딩
-
-  bool isLoading = false;
+  MainState get state => _state;
 
   MainViewModel() {
     _fetchImages('');
   }
 
   void onAction(MainAction action) {
-    if (action is AddAction) {
-    } else if (action is GetImages) {
-      _fetchImages(action.query);
-    }
+    action.when(
+      getImages: (query) {
+        _fetchImages(query);
+      },
+      addAction: () {},
+      refresh: () {},
+    );
   }
 
   Future<void> _fetchImages(String query) async {
-    isLoading = true;
+    _state = state.copyWith(isLoading: true);
     notifyListeners();
 
-    _photos = await _photoRepository.getImages(query);
-    isLoading = false;
+    final photos = await _photoRepository.getImages(query);
+    _state = state.copyWith(
+      photos: photos,
+      isLoading: false,
+    );
     notifyListeners();
   }
 
