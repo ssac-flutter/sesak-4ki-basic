@@ -89,7 +89,7 @@ class _MainScreenState extends State<MainScreen> {
                         return ClipRRect(
                           borderRadius: BorderRadius.circular(20),
                           child: Image.network(
-                            image.previewURL,
+                            image.previewUrl,
                             fit: BoxFit.cover,
                           ),
                         );
