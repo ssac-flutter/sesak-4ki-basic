@@ -1,4 +1,3 @@
-// stless
 import 'package:flutter/material.dart';
 import 'package:flutter_pr_guide/second_screen.dart';
 
