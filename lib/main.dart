@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
 // 사소한 무언가
+// 수정!!!
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
