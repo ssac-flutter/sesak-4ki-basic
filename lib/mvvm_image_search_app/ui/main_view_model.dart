@@ -5,6 +5,7 @@ import 'package:flutter_pr_guide/mvvm_image_search_app/data/repository/photo_rep
 import 'package:flutter_pr_guide/mvvm_image_search_app/data/repository/photo_repository_impl.dart';
 import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_action.dart';
 import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_state.dart';
+import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_ui_event.dart';
 
 class MainViewModel extends ChangeNotifier {
   // 데이터 저장소
@@ -14,9 +15,9 @@ class MainViewModel extends ChangeNotifier {
 
   MainState get state => _state;
 
-  final _eventController = StreamController<String>();
+  final _eventController = StreamController<MainUiEvent>();
 
-  Stream<String> get eventStream => _eventController.stream;
+  Stream<MainUiEvent> get eventStream => _eventController.stream;
 
   MainViewModel({PhotoRepository? photoRepository}) {
     _photoRepository = (photoRepository ?? PhotoRepositoryImpl());
@@ -27,7 +28,7 @@ class MainViewModel extends ChangeNotifier {
     action.when(
       getImages: (query) {
         if (query.isEmpty) {
-          _eventController.add('검색어를 입력해 주세요');
+          _eventController.add(const MainUiEvent.showDialog('검색어를 입력해 주세요'));
           return;
         }
         _fetchImages(query);
@@ -56,7 +57,7 @@ class MainViewModel extends ChangeNotifier {
           isLoading: false,
         );
         notifyListeners();
-        _eventController.add(message);
+        _eventController.add(MainUiEvent.showSnackBar(message));
       },
     );
   }

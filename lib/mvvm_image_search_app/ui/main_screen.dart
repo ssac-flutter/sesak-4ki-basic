@@ -22,10 +22,40 @@ class _MainScreenState extends State<MainScreen> {
     Future.microtask(() {
       final viewModel = context.read<MainViewModel>();
       viewModel.eventStream.listen((event) {
-        final snackBar = SnackBar(
-          content: Text(event),
+        event.when(
+          showSnackBar: (message) {
+            final snackBar = SnackBar(
+              content: Text(message),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          },
+          showDialog: (message) {
+            showDialog<void>(
+              context: context,
+              barrierDismissible: false, // user must tap button!
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('AlertDialog Title'),
+                  content: SingleChildScrollView(
+                    child: ListBody(
+                      children: <Widget>[
+                        Text(message),
+                      ],
+                    ),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      child: const Text('Approve'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          },
         );
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       });
     });
   }
