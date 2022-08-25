@@ -16,6 +16,21 @@ class _MainScreenState extends State<MainScreen> {
   final _controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    Future.microtask(() {
+      final viewModel = context.read<MainViewModel>();
+      viewModel.eventStream.listen((event) {
+        final snackBar = SnackBar(
+          content: Text(event),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      });
+    });
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
