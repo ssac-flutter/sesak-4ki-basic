@@ -31,12 +31,24 @@ class MainViewModel extends ChangeNotifier {
     _state = state.copyWith(isLoading: true);
     notifyListeners();
 
-    final photos = await _photoRepository.getImages(query);
-    _state = state.copyWith(
-      photos: photos,
-      isLoading: false,
+    final result = await _photoRepository.getImages(query);
+    result.when(
+      success: (photos) {
+        _state = state.copyWith(
+          photos: photos,
+          isLoading: false,
+        );
+        notifyListeners();
+      },
+      error: (message) {
+        _state = state.copyWith(
+          photos: [],
+          isLoading: false,
+        );
+        notifyListeners();
+        print('error!!!!!! : $message');
+      },
     );
-    notifyListeners();
   }
 
   void _addAction() {
