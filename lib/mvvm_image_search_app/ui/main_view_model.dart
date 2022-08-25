@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_pr_guide/mvvm_image_search_app/data/repository/photo_repository.dart';
+import 'package:flutter_pr_guide/mvvm_image_search_app/data/repository/photo_repository_impl.dart';
 import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_action.dart';
 import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_state.dart';
 
 class MainViewModel extends ChangeNotifier {
   // 데이터 저장소
-  final _photoRepository = PhotoRepository();
+  late final PhotoRepository _photoRepository;
 
   MainState _state = const MainState();
 
   MainState get state => _state;
 
-  MainViewModel() {
+  MainViewModel({PhotoRepository? photoRepository}) {
+    _photoRepository = (photoRepository ?? PhotoRepositoryImpl());
     _fetchImages('');
   }
 
