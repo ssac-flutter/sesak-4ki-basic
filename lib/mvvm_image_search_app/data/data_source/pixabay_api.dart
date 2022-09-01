@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter_pr_guide/mvvm_image_search_app/data/util/result.dart';
 import 'package:http/http.dart' as http;
 
-import '../model/photo.dart';
+import '../../domain/model/photo.dart';
 
 class PixabayApi {
   final http.Client _client;

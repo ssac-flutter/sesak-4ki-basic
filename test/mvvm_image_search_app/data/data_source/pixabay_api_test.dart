@@ -1,5 +1,5 @@
 import 'package:flutter_pr_guide/mvvm_image_search_app/data/data_source/pixabay_api.dart';
-import 'package:flutter_pr_guide/mvvm_image_search_app/data/model/photo.dart';
+import 'package:flutter_pr_guide/mvvm_image_search_app/domain/model/photo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:http/testing.dart';

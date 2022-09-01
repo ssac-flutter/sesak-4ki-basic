@@ -1,5 +1,5 @@
-import 'package:flutter_pr_guide/mvvm_image_search_app/data/model/photo.dart';
-import 'package:flutter_pr_guide/mvvm_image_search_app/data/repository/photo_repository.dart';
+import 'package:flutter_pr_guide/mvvm_image_search_app/domain/model/photo.dart';
+import 'package:flutter_pr_guide/mvvm_image_search_app/domain/repository/photo_repository.dart';
 import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_action.dart';
 import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_view_model.dart';
 import 'package:flutter_test/flutter_test.dart';

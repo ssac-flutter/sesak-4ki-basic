@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_action.dart';
-import 'package:flutter_pr_guide/mvvm_image_search_app/ui/main_view_model.dart';
 import 'package:provider/provider.dart';
 
-import '../data/model/photo.dart';
+import '../domain/model/photo.dart';
+import 'main_action.dart';
+import 'main_view_model.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
