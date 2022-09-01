@@ -46,6 +46,8 @@ dependencies:
   flutterfire_ui: ^0.4.3+4
   provider: ^6.0.3
   json_annotation: ^4.6.0
+  flutter_hooks: ^0.18.0
+  hooks_riverpod: ^2.0.0-dev.9
 
 dev_dependencies:
   flutter_test:

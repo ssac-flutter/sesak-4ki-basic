@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_pr_guide/main.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../domain/model/photo.dart';
 import 'main_action.dart';
 import 'main_view_model.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _MainScreenState extends ConsumerState<MainScreen> {
   final _controller = TextEditingController();
+
+  late final MainViewModel viewModel;
 
   @override
   void initState() {
     super.initState();
 
     Future.microtask(() {
-      final viewModel = context.read<MainViewModel>();
+      viewModel = ref.read(mainViewModel.notifier);
       viewModel.eventStream.listen((event) {
         event.when(
           showSnackBar: (message) {
@@ -68,11 +71,9 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = context.watch<MainViewModel>();
-
     final orientation = MediaQuery.of(context).orientation;
 
-    final state = viewModel.state;
+    final state = ref.watch(mainViewModel);
 
     return Scaffold(
       appBar: AppBar(
